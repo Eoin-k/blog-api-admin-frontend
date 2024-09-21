@@ -6,7 +6,6 @@ const SideBar = (user) => {
 			{user ? (
 				<div>
 					<p>Hey there {user.user}</p>
-					<Link to="createpost">This is a link to create a post</Link>
 				</div>
 			) : (
 				<div>

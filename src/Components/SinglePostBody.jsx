@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import Comments from "./Comments";
-const SinglePost = () => {
+
+const SinglePostBody = () => {
 	const url = import.meta.env.VITE_BACKEND_URL;
 	let { id } = useParams();
 	const [post, setPost] = useState([]);
-	const [comments, setComments] = useState([]);
 
 	const [loading, setLoading] = useState(true);
 	useEffect(() => {
@@ -14,8 +14,6 @@ const SinglePost = () => {
 				const res = await fetch(`${url}/post/${id}`);
 				const data = await res.json();
 				setPost(data[0]);
-				setComments(...comments, data[0].comments);
-				console.log(data);
 				setLoading(false);
 			} catch (error) {
 				console.error(error);
@@ -29,21 +27,26 @@ const SinglePost = () => {
 	}
 
 	if (loading) {
-		return <div>Loading....</div>;
+		return <div className="container">Loading....</div>;
 	}
 
 	return (
 		<>
-			<h1>This is the single post element {post.id}</h1>
-			<p>{post.content}</p>
-			{comments.length == 0 ? (
-				<p>No comments to show</p>
-			) : (
-				<Comments comments={comments} />
-			)}
-			<Link to="/">Go home</Link>
+			<div className="container">
+				<div className="post-header">
+					<h1>{post.title}</h1>
+				</div>
+				<div className="post-body">
+					<p>{post.content}</p>
+				</div>
+				<div className="comments-wrapper">
+					<div className="comments-inner">
+						<Comments />
+					</div>
+				</div>
+			</div>
 		</>
 	);
 };
 
-export default SinglePost;
+export default SinglePostBody;

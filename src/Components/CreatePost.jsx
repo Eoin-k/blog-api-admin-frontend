@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 const CreatePost = () => {
 	const [title, setTitle] = useState("");
 	const [content, setContent] = useState("");
@@ -71,6 +72,7 @@ const CreatePost = () => {
 							Create Post
 						</button>
 					</form>
+					<Link to="/">Go home</Link>
 				</div>
 			) : (
 				<div>

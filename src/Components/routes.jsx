@@ -1,12 +1,12 @@
-import App from "../App";
-import SinglePost from "./SinglePost";
-import LoginForm from "./login";
-import CreatePost from "./CreatePost";
+import SinglePost from "../../Pages/SinglePost";
+import LoginPage from "../../Pages/LoginPage";
+import SignupPage from "../../Pages/SignupPage";
+import HomePage from "../../Pages/HomePage";
 
 const routes = [
 	{
 		path: "/",
-		element: <App />,
+		element: <HomePage />,
 	},
 	{
 		path: "/post/:id",
@@ -14,11 +14,11 @@ const routes = [
 	},
 	{
 		path: "/login",
-		element: <LoginForm />,
+		element: <LoginPage />,
 	},
 	{
-		path: "/createpost",
-		element: <CreatePost />,
+		path: "/signup",
+		element: <SignupPage />,
 	},
 ];
 
