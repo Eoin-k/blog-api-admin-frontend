@@ -13,7 +13,7 @@ const SinglePostBody = () => {
 			try {
 				const res = await fetch(`${url}/post/${id}`);
 				const data = await res.json();
-				setPost(data[0]);
+				setPost(data);
 				setLoading(false);
 			} catch (error) {
 				console.error(error);
