@@ -15,7 +15,7 @@ function SignupForm() {
 				headers: {
 					"content-type": "application/json",
 				},
-				body: JSON.stringify({ username, email, password }),
+				body: JSON.stringify({ username, email, password, role: "ADMIN" }),
 			});
 
 			if (res.status == 201) {
