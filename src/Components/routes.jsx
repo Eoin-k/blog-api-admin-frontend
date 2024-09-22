@@ -2,6 +2,7 @@ import SinglePost from "../../Pages/SinglePost";
 import LoginPage from "../../Pages/LoginPage";
 import SignupPage from "../../Pages/SignupPage";
 import HomePage from "../../Pages/HomePage";
+import EditPostPage from "../../Pages/EditPostPage";
 
 const routes = [
 	{
@@ -19,6 +20,10 @@ const routes = [
 	{
 		path: "/signup",
 		element: <SignupPage />,
+	},
+	{
+		path: "/edit-post/:id",
+		element: <EditPostPage />,
 	},
 ];
 

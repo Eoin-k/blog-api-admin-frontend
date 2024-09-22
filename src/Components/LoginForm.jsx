@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 
-const LoginForm = () => {
+export default function LoginForm() {
 	const user = localStorage.getItem("user");
 	const navigate = useNavigate();
 	const [email, setEmail] = useState("");
@@ -73,6 +73,4 @@ const LoginForm = () => {
 			</div>
 		</>
 	);
-};
-
-export default LoginForm;
+}

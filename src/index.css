@@ -94,7 +94,7 @@ h1 {
 form {
 	display: flex;
 	flex-direction: column;
-	max-width: 20rem;
+	max-width: 25rem;
 	align-self: center;
 	gap: 1rem;
 }
@@ -157,9 +157,6 @@ footer {
 	align-items: center;
 	padding-block: 3rem;
 }
-.login-form-wrapper {
-	min-width: 15rem;
-}
 
 .header-inner {
 	display: flex;
@@ -180,10 +177,15 @@ footer {
 	max-width: 70ch;
 }
 
-.comment-form-wrapper {
+.comment-form-wrapper,
+.login-form-wrapper {
 	display: flex;
 	flex-direction: column;
 	margin-top: auto;
+	width: 100%;
+	max-width: 30rem;
+	padding: 1rem;
+	box-shadow: 0 -2px 10px rgba(0, 0, 0, 1);
 }
 
 .comments-inner {
@@ -197,6 +199,9 @@ footer {
 .post-header,
 .comments-wrapper {
 	text-align: center;
+	flex-direction: column;
+	display: flex;
+	align-items: center;
 }
 
 .post-body {

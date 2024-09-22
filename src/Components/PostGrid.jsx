@@ -9,7 +9,14 @@ export default function PostGrid(posts) {
 						<>
 							<div className="post-card" key={index}>
 								<p key={index}>{post.title}</p>
-								<Link to={`/post/${post.id}`}>View Post</Link>
+								<div className="buttons-wrapper">
+									<Link className="button-primary" to={`/post/${post.id}`}>
+										View Post
+									</Link>
+									<Link to={`/edit-post/${post.id}`} className="button-primary">
+										Edit post
+									</Link>
+								</div>
 							</div>
 						</>
 					);

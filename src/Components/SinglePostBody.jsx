@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Comments from "./Comments";
 
 const SinglePostBody = () => {
@@ -22,10 +22,6 @@ const SinglePostBody = () => {
 		getpost();
 	}, []);
 
-	if (post.published == false) {
-		return <p>sorry it seems we dont have that post here</p>;
-	}
-
 	if (loading) {
 		return <div className="container">Loading....</div>;
 	}
@@ -35,6 +31,14 @@ const SinglePostBody = () => {
 			<div className="container">
 				<div className="post-header">
 					<h1>{post.title}</h1>
+					<div className="buttons-wrapper">
+						<Link className="button-primary" to={"#"}>
+							Edit post
+						</Link>
+						<Link className="button-primary" to={"#"}>
+							Delete post
+						</Link>
+					</div>
 				</div>
 				<div className="post-body">
 					<p>{post.content}</p>
