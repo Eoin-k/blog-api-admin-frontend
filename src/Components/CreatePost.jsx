@@ -40,16 +40,12 @@ const CreatePost = () => {
 	return (
 		<>
 			{role == "ADMIN" ? (
-				<div>
-					<h1>This is the form to submit a post</h1>
+				<div className="container post-header">
+					<h1>This is the form to create a new post for the blog</h1>
 					<form action="">
 						<label htmlFor="title">
 							Post title
-							<input
-								type="text"
-								id="title"
-								onChange={(e) => setTitle(e.target.value)}
-							/>
+							<input type="text" id="title" onChange={(e) => setTitle(e.target.value)} />
 						</label>
 						<label htmlFor="content">
 							Post Content
@@ -61,12 +57,7 @@ const CreatePost = () => {
 						</label>
 						<label htmlFor="published">
 							Publish Post?
-							<input
-								onChange={handleCheckbox}
-								type="checkbox"
-								name="published"
-								id="published"
-							/>
+							<input onChange={handleCheckbox} type="checkbox" name="published" id="published" />
 						</label>
 						<button type="button" onClick={createPost}>
 							Create Post
@@ -75,10 +66,10 @@ const CreatePost = () => {
 					<Link to="/">Go home</Link>
 				</div>
 			) : (
-				<div>
+				<div className="container post-header">
 					<h2>
-						You do not have permission to access this page please login or
-						request access from an admin
+						You do not have permission to access this page please login or request access from an
+						admin
 					</h2>
 				</div>
 			)}

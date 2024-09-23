@@ -178,6 +178,16 @@ footer {
 
 .comment-card-wrapper {
 	max-width: 70ch;
+	align-items: center;
+}
+
+.comment-card {
+	display: flex;
+	flex-direction: column;
+	border: 1px solid white;
+	max-width: 20rem;
+	padding: 1rem;
+	align-items: center;
 }
 
 .comment-form-wrapper,
@@ -219,15 +229,6 @@ footer {
 	max-width: 8rem;
 	align-self: center;
 	margin-top: 1rem;
-}
-
-.comment-card {
-	display: flex;
-	flex-direction: column;
-	border: 1px solid white;
-	max-width: 20rem;
-	padding: 1rem;
-	align-items: center;
 }
 
 .switch {

@@ -8,7 +8,6 @@ import PostEditForm from "../src/Components/PostEditForm";
 export default function EditPostPage() {
 	const [post, setPost] = useState({});
 	const [loading, setLoading] = useState(true);
-
 	const url = import.meta.env.VITE_BACKEND_URL;
 	let { id } = useParams();
 

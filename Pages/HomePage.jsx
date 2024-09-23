@@ -6,6 +6,7 @@ import PostGrid from "../src/Components/PostGrid";
 
 export default function HomePage() {
 	const token = localStorage.getItem("token");
+	const role = localStorage.getItem("role");
 	const url = import.meta.env.VITE_BACKEND_URL;
 	const [posts, setPosts] = useState([]);
 	const [loading, setLoading] = useState(true);
@@ -53,17 +54,30 @@ export default function HomePage() {
 		return (
 			<>
 				<Header />
-				<div className="container">Loading posts.......</div>
+				<div className="container">Loading Content</div>
 				<Footer />
 			</>
 		);
 	}
-	return (
-		<>
-			<Header />
-
-			<PostGrid posts={posts} deletePost={deletePost} />
-			<Footer />
-		</>
-	);
+	if (role == "ADMIN") {
+		return (
+			<>
+				<Header />
+				<PostGrid posts={posts} deletePost={deletePost} />
+				<Footer />
+			</>
+		);
+	} else {
+		return (
+			<>
+				<Header />
+				<div className="container post-header">
+					<h2>
+						You must be logged in to view content. Please login or contact admin for assistance
+					</h2>
+				</div>
+				<Footer />
+			</>
+		);
+	}
 }

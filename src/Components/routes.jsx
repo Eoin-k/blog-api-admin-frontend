@@ -3,6 +3,7 @@ import LoginPage from "../../Pages/LoginPage";
 import SignupPage from "../../Pages/SignupPage";
 import HomePage from "../../Pages/HomePage";
 import EditPostPage from "../../Pages/EditPostPage";
+import CreatePostPage from "../../Pages/CreatePostPage";
 
 const routes = [
 	{
@@ -24,6 +25,10 @@ const routes = [
 	{
 		path: "/edit-post/:id",
 		element: <EditPostPage />,
+	},
+	{
+		path: "/createpost",
+		element: <CreatePostPage />,
 	},
 ];
 

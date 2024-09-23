@@ -5,6 +5,7 @@ import Comments from "./Comments";
 const SinglePostBody = () => {
 	const url = import.meta.env.VITE_BACKEND_URL;
 	const token = localStorage.getItem("token");
+	const role = localStorage.getItem("role");
 	const navigate = useNavigate();
 	let { id } = useParams();
 	const [post, setPost] = useState([]);
@@ -50,36 +51,45 @@ const SinglePostBody = () => {
 		return <div className="container">Loading....</div>;
 	}
 
-	return (
-		<>
-			<div className="container">
-				<div className="post-header">
-					<h1>{post.title}</h1>
-					<div className="buttons-wrapper">
-						<Link className="button-primary" to={`/edit-post/${post.id}`}>
-							Edit post
-						</Link>
-						<button
-							type="button"
-							id={post.id}
-							onClick={(e) => deletePost(e)}
-							className="button-primary"
-						>
-							Delete Post
-						</button>
+	if (role == "ADMIN") {
+		return (
+			<>
+				<div className="container">
+					<div className="post-header">
+						<h1>{post.title}</h1>
+						<div className="buttons-wrapper">
+							<Link className="button-primary" to={`/edit-post/${post.id}`}>
+								Edit post
+							</Link>
+							<button
+								type="button"
+								id={post.id}
+								onClick={(e) => deletePost(e)}
+								className="button-primary"
+							>
+								Delete Post
+							</button>
+						</div>
+					</div>
+					<div className="post-body">
+						<p>{post.content}</p>
+					</div>
+					<div className="comments-wrapper">
+						<h3>Comments</h3>
+						<div className="comments-inner">
+							<Comments />
+						</div>
 					</div>
 				</div>
-				<div className="post-body">
-					<p>{post.content}</p>
-				</div>
-				<div className="comments-wrapper">
-					<div className="comments-inner">
-						<Comments />
-					</div>
-				</div>
+			</>
+		);
+	} else {
+		return (
+			<div className="container post-header">
+				<h2>You do not have permission to access this page</h2>
 			</div>
-		</>
-	);
+		);
+	}
 };
 
 export default SinglePostBody;

@@ -71,7 +71,7 @@ export default function PostEditForm(post) {
 					</form>
 				</div>
 			) : (
-				<div>
+				<div className="container post-header">
 					<h2>
 						You do not have permission to access this page please login or request access from an
 						admin
