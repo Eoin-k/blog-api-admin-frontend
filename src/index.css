@@ -130,6 +130,9 @@ footer {
 }
 
 .post-card {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
 	min-height: 8rem;
 	padding: 1.5rem;
 	box-shadow: 0 -2px 10px rgba(0, 0, 0, 1);
@@ -224,4 +227,69 @@ footer {
 	border: 1px solid white;
 	max-width: 20rem;
 	padding: 1rem;
+}
+
+.switch {
+	position: relative;
+	display: inline-block;
+	width: 60px;
+	height: 34px;
+}
+
+.switch input {
+	opacity: 0;
+	width: 0;
+	height: 0;
+}
+
+.slider {
+	position: absolute;
+	cursor: pointer;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: #dc1212;
+	-webkit-transition: 0.4s;
+	transition: 0.4s;
+}
+
+.slider:before {
+	position: absolute;
+	content: "";
+	height: 26px;
+	width: 26px;
+	left: 4px;
+	bottom: 4px;
+	background-color: white;
+	-webkit-transition: 0.4s;
+	transition: 0.4s;
+}
+
+input:checked + .slider {
+	background-color: rgb(15, 223, 4);
+}
+
+input:focus + .slider {
+	box-shadow: 0 0 1px rgb(52, 59, 216);
+}
+
+input:checked + .slider:before {
+	-webkit-transform: translateX(26px);
+	-ms-transform: translateX(26px);
+	transform: translateX(26px);
+}
+
+.slider.round {
+	border-radius: 34px;
+}
+
+.slider.round:before {
+	border-radius: 50%;
+}
+
+.published-status-wrapper {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 }

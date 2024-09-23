@@ -5,14 +5,40 @@ import { useState, useEffect } from "react";
 import PostGrid from "../src/Components/PostGrid";
 
 export default function HomePage() {
+	const token = localStorage.getItem("token");
 	const url = import.meta.env.VITE_BACKEND_URL;
 	const [posts, setPosts] = useState([]);
 	const [loading, setLoading] = useState(true);
 
+	const deletePost = async (e, postid) => {
+		const index = e.target.id;
+		const newpostArray = posts.slice(0, index).concat(posts.slice(index + 1, posts.length));
+		confirm("Sure you wanna delete this?");
+		if (confirm) {
+			setPosts(newpostArray);
+			console.log(postid);
+			try {
+				const res = await fetch(`${url}/deletepost/${postid}`, {
+					method: "POST",
+					headers: {
+						Authorization: token,
+						"content-type": "application/json",
+					},
+				});
+				if (res.ok) {
+					console.log("post deleted");
+					return;
+				}
+			} catch (error) {
+				console.error(error);
+			}
+		}
+	};
+
 	useEffect(() => {
 		const getAllPosts = async () => {
 			try {
-				const res = await fetch(`${url}`);
+				const res = await fetch(`${url}/admin`);
 				const data = await res.json();
 				setPosts(data);
 				setLoading(false);
@@ -36,7 +62,7 @@ export default function HomePage() {
 		<>
 			<Header />
 
-			<PostGrid posts={posts} />
+			<PostGrid posts={posts} deletePost={deletePost} />
 			<Footer />
 		</>
 	);
