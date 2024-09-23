@@ -227,6 +227,7 @@ footer {
 	border: 1px solid white;
 	max-width: 20rem;
 	padding: 1rem;
+	align-items: center;
 }
 
 .switch {

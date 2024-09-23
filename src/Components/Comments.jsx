@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router-dom";
 
 const Comments = () => {
 	const [content, setContent] = useState("");
+	const [editedComment, setEditedComment] = useState("");
 	const [comments, setComments] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const user = localStorage.getItem("user");
@@ -16,8 +17,7 @@ const Comments = () => {
 			try {
 				const res = await fetch(`${url}/post/${id}/comments`);
 				const data = await res.json();
-				setComments(...comments, data);
-				console.log("This is data: ", data);
+				setComments([...data]);
 				setLoading(false);
 			} catch (error) {
 				console.error(error);
@@ -58,6 +58,21 @@ const Comments = () => {
 		}
 	}
 
+	const editDialog = (e, commentid) => {
+		const dialog = document.getElementById("editdialog");
+		dialog.showModal();
+		const commentToEdit = e.target.parentNode.parentNode.firstChild.textContent;
+		setEditedComment(commentToEdit);
+		const submitButton = document.getElementById("editcommentsubmit");
+		submitButton.setAttribute("data-commentid", commentid);
+		console.log(`this is: ${editedComment}`);
+	};
+
+	const closeDialog = () => {
+		const dialog = document.getElementById("editdialog");
+		dialog.close();
+	};
+
 	const submitComment = async () => {
 		const url = import.meta.env.VITE_BACKEND_URL;
 		try {
@@ -89,6 +104,56 @@ const Comments = () => {
 		}
 	};
 
+	const updateComment = async (e, commentid) => {
+		commentid = e.target.getAttribute("data-commentid");
+		try {
+			const res = await fetch(`${url}/updatecomment/${commentid}`, {
+				method: "POST",
+				headers: {
+					Authorization: token,
+					"content-type": "application/json",
+				},
+				body: JSON.stringify({ editedComment }),
+			});
+
+			if (res.ok) {
+				alert("Comment updated");
+				closeDialog();
+				return;
+			} else {
+				console.log("Cannot complete request");
+			}
+		} catch (err) {
+			console.log(err);
+		}
+	};
+
+	const deleteComment = async (e, commentid) => {
+		const index = e.target.id;
+		const newCommentArray = comments
+			.slice(0, index)
+			.concat(comments.slice(index + 1, comments.length));
+		confirm("Sure you wanna delete this?");
+		if (confirm) {
+			setComments(newCommentArray);
+			try {
+				const res = await fetch(`${url}/deletecomment/${commentid}`, {
+					method: "POST",
+					headers: {
+						Authorization: token,
+						"content-type": "application/json",
+					},
+				});
+				if (res.ok) {
+					console.log("comment deleted");
+					return;
+				}
+			} catch (error) {
+				console.error(error);
+			}
+		}
+	};
+
 	if (loading) {
 		return <div className="container">Loading....</div>;
 	}
@@ -97,15 +162,32 @@ const Comments = () => {
 			<>
 				<div className="container comments-wrapper">
 					<div className="container comment-card-wrapper">
-						{comments.map((comment) => {
+						{comments.map((comment, index) => {
 							if (comment.content == "") {
 								return <></>;
 							} else {
 								return (
-									<div className="comment-card" key={comment.id}>
+									<div className="comment-card" key={index}>
 										<p>{comment.content}</p>
 										<div className="comment-author-wrapper">
 											<p>Commented: {timeAgo(comment.createdAt)}</p>
+										</div>
+										<div className="buttons-wrapper">
+											<button
+												id={index}
+												onClick={(e) => editDialog(e, `${comment.id}`)}
+												className="button-primary edit-button"
+											>
+												Edit comment
+											</button>
+											<button
+												onClick={(e) => deleteComment(e, `${comment.id}`)}
+												type="button"
+												id={index}
+												className="button-primary"
+											>
+												Delete comment
+											</button>
 										</div>
 									</div>
 								);
@@ -130,6 +212,30 @@ const Comments = () => {
 						</form>
 					</div>
 				</div>
+				<dialog id="editdialog">
+					<p>Hi I am a dialog</p>
+					<form action="">
+						<label htmlFor="editcomment">
+							<p>Add a comment:</p>
+							<textarea
+								defaultValue={editedComment}
+								onChange={(e) => setEditedComment(e.target.value)}
+								cols={40}
+								rows={15}
+								name="editcontent"
+								id="editcontent"
+							></textarea>
+						</label>
+					</form>
+					<div className="buttons-wrapper">
+						<button className="button-primary" onClick={closeDialog}>
+							Close
+						</button>
+						<button className="button-primary" id="editcommentsubmit" onClick={updateComment}>
+							Submit edit
+						</button>
+					</div>
+				</dialog>
 			</>
 		);
 	} else {
